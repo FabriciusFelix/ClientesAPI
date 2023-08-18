@@ -39,14 +39,18 @@ namespace Clientes.API.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] Cliente cliente)
         {
+            _clienteRepository.AddCliente(cliente);
+
+
+
             return CreatedAtAction(nameof(GetByIdClientes),new { id = cliente.Id }, cliente);
         }
 
         // PUT api/<ClientesController>/5
         [HttpPut("{id}")]
-        public IActionResult PutCliente(int id, [FromBody] Cliente cliente)
+        public IActionResult PutCliente(int id, string nome, string sobrenome, string endereco)
         {
-            var putCliente = _clienteRepository.UpdateCliente(cliente);
+            var putCliente = _clienteRepository.UpdateCliente(id, nome, sobrenome, endereco);
             return NoContent();
         }
 

@@ -14,6 +14,7 @@ namespace Clientes.Core.Entities
         public int Id { get; private set; }
         public string Nome { get; private set; }
         public string Sobrenome { get; private set; }
+        public string CodigoCpf { get; private set; }
         public string Email { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public string Endereco { get; private set; }
@@ -21,30 +22,44 @@ namespace Clientes.Core.Entities
         public DateTime CriadoEm { get; private set; }
 
 
-
         // Construtor da classe
-        public Cliente(string nome, string sobrenome, string email, DateTime dataNascimento, string endereco)
+
+        public Cliente(int id, string nome, string sobrenome, string codigoCpf, string email, DateTime dataNascimento, string endereco, bool ativo, DateTime criadoEm)
         {
+            Id = id;
             Nome = nome;
             Sobrenome = sobrenome;
-            Email = email;
+            CodigoCpf = codigoCpf;
+            Email = ValidarEmail(email);
             DataNascimento = dataNascimento;
             Endereco = endereco;
             CriadoEm = DateTime.Now;
             Ativo = true;
         }
-        
-        private bool ValidarEmail(string email)
+
+        private string ValidarEmail(string email)
         {
             string regex = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
-            return Regex.IsMatch(email, regex);
+            var valido = Regex.IsMatch(email, regex);
+
+            if (valido)
+            {
+                return email;
+            }
+            else throw new Exception ($"E-mail Inválido, {email}");
+            
         }
 
         public void InativaCliente()
         {
             this.Ativo = false;
         }
-
+        public void UpdateCliente(string nome, string sobrenome, string endereco)
+        {
+            Nome = nome;
+            Sobrenome = sobrenome;
+            Endereco = endereco;
+        }
     }
 
 

@@ -9,13 +9,13 @@ namespace Clientes.Core.Repositories
 {
     public interface IClienteRepository
     {
-        Cliente GetAllClientes();
+        List<Cliente> GetAllClientes();
 
         Cliente GetByIdCliente(int id);
 
         Cliente AddCliente(Cliente cliente);
 
-        Cliente UpdateCliente(Cliente cliente);
+        Cliente UpdateCliente(int id , string nome, string sobrenome, string endereco);
         int InativaCliente(int id);
     }
 }

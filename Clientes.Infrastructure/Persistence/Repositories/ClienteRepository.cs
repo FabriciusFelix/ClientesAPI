@@ -1,5 +1,6 @@
 ﻿using Clientes.Core.Entities;
 using Clientes.Core.Repositories;
+using Microsoft.EntityFrameworkCore.Update.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,32 +21,54 @@ namespace Clientes.Infrastructure.Persistence.Repositories
 
         public Cliente AddCliente(Cliente cliente)
         {
-            throw new NotImplementedException();
+            var clienteNovo = _db.Clientes.Add(cliente);
+            _db.SaveChanges();
+            return clienteNovo.Entity;
         }
 
-        public Cliente GetAllClientes()
+        public List<Cliente> GetAllClientes()
         {
-            throw new NotImplementedException();
+            return _db.Clientes.ToList();
         }
 
         public Cliente GetByIdCliente(int id)
         {
-            throw new NotImplementedException();
-        }
+            var existe = _db.Clientes.SingleOrDefault(x => x.Id == id);
+            if (existe == null)
+            {
+                throw new EntryPointNotFoundException("Não encontrado");
 
-        public Cliente GetClienteById(int id)
-        {
-            throw new NotImplementedException();
+            }
+
+            return existe;
         }
 
         public int InativaCliente(int id)
         {
-            throw new NotImplementedException();
+            var existe = _db.Clientes.SingleOrDefault(x => x.Id == id);
+            if (existe == null)
+            {
+                throw new EntryPointNotFoundException("Não encontrado");
+
+            }
+            existe.InativaCliente();
+            _db.SaveChanges();
+
+            return id;
         }
 
-        public Cliente UpdateCliente(Cliente cliente)
+        public Cliente UpdateCliente(int id, string nome, string sobrenome, string endereco)
         {
-            throw new NotImplementedException();
+           var existe = _db.Clientes.SingleOrDefault(x => x.Id == id);
+            if (existe == null)
+            {
+                throw new EntryPointNotFoundException("Não encontrado");
+
+            }
+            existe.UpdateCliente(nome, sobrenome, endereco);
+            _db.Clientes.Update(existe);
+            _db.SaveChanges();
+            return existe;
         }
     }
 }
