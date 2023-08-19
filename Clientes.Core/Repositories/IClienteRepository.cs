@@ -15,7 +15,7 @@ namespace Clientes.Core.Repositories
 
         Cliente AddCliente(Cliente cliente);
 
-        Cliente UpdateCliente(int id , string nome, string sobrenome, string endereco);
+        Cliente UpdateCliente(Cliente cliente);
         int InativaCliente(int id);
     }
 }

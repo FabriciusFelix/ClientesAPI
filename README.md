@@ -6,4 +6,5 @@ Nessa Api é permitido realizar as operações básicas de um sistema (Create,Read,U
 Até o momento o projeto contém:
 - Padrão de Arquitetura Limpa ( Onion Architecture )
 - Endpoints Básicos da API (CRUD)
-- Relacionamento utilizando Interfaces(Padrão Repository)
+- Relacionamento com o Contexto de Dados utilizando Interfaces(Padrão Repository)
+- Design Pattern **Mediator** utilizando **CQRS** e a biblioteca MediatR.

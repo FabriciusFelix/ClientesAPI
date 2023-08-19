@@ -1,5 +1,11 @@
-﻿using Clientes.Core.Entities;
+﻿using Clientes.Application.Commands.CreateCliente;
+using Clientes.Application.Commands.DeleteCliente;
+using Clientes.Application.Commands.UpdateCliente;
+using Clientes.Application.Queries.GetAllClientes;
+using Clientes.Application.Queries.GetByIdClientes;
+using Clientes.Core.Entities;
 using Clientes.Core.Repositories;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -10,11 +16,11 @@ namespace Clientes.API.Controllers
     [ApiController]
     public class ClientesController : ControllerBase
     {
-        private readonly IClienteRepository _clienteRepository;
-
-        public ClientesController(IClienteRepository clienteRepository)
+        
+        private readonly IMediator _mediator;
+        public ClientesController(IClienteRepository clienteRepository, IMediator mediator)
         {
-            _clienteRepository = clienteRepository;
+            _mediator = mediator;
         }
 
 
@@ -22,7 +28,8 @@ namespace Clientes.API.Controllers
         [HttpGet]
         public IActionResult GetAllClientes()
         {
-            var clientes = _clienteRepository.GetAllClientes();
+            var getAllClientes = new GetAllClientesQuery();
+            var clientes = _mediator.Send(getAllClientes);
 
             return Ok(clientes);
         }
@@ -31,35 +38,47 @@ namespace Clientes.API.Controllers
         [HttpGet("{id}")]
         public IActionResult GetByIdClientes(int id)
         {
-            var clientes = _clienteRepository.GetByIdCliente(id);
-            return Ok(clientes);
+            var getByIdCliente = new GetByIdClientesQuery(id);
+            var cliente = _mediator.Send(getByIdCliente);
+
+            return Ok(cliente);
         }
 
         // POST api/<ClientesController>
         [HttpPost]
-        public IActionResult Post([FromBody] Cliente cliente)
+        public IActionResult Post([FromBody] CreateClienteCommand cliente)
         {
-            _clienteRepository.AddCliente(cliente);
-
-
-
-            return CreatedAtAction(nameof(GetByIdClientes),new { id = cliente.Id }, cliente);
+            var id = _mediator.Send(cliente);
+            if (id.Exception != null)
+            {
+                return BadRequest(id.Exception.InnerException.Message);
+            }
+            return CreatedAtAction(nameof(GetByIdClientes),new { id = id }, cliente);
         }
 
         // PUT api/<ClientesController>/5
         [HttpPut("{id}")]
-        public IActionResult PutCliente(int id, string nome, string sobrenome, string endereco)
+        public IActionResult PutCliente(int id, [FromBody] UpdateClienteCommand command)
         {
-            var putCliente = _clienteRepository.UpdateCliente(id, nome, sobrenome, endereco);
+            command.Id = id;
+            command.Email = Cliente.ValidarEmail(command.Email);
+            _mediator.Send(command);
             return NoContent();
         }
 
         // DELETE api/<ClientesController>/5
         [HttpDelete("{id}")]
-        public void DeleteCliente(int id)
+        public IActionResult DeleteCliente(int id)
         {
-            var deleteCliente = _clienteRepository.InativaCliente(id);
+            var deleteCliente = new DeleteClienteCommand(id);
+            var cliente = _mediator.Send(deleteCliente);
 
+            if (cliente.Id == null)
+            {
+                return BadRequest();
+            }
+
+            return NoContent();
         }
     }
 }

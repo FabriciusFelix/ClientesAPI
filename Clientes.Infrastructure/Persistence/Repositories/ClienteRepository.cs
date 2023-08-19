@@ -20,7 +20,8 @@ namespace Clientes.Infrastructure.Persistence.Repositories
         }
 
         public Cliente AddCliente(Cliente cliente)
-        {
+        {   
+
             var clienteNovo = _db.Clientes.Add(cliente);
             _db.SaveChanges();
             return clienteNovo.Entity;
@@ -36,7 +37,7 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             var existe = _db.Clientes.SingleOrDefault(x => x.Id == id);
             if (existe == null)
             {
-                throw new EntryPointNotFoundException("Não encontrado");
+                throw new Exception("Não encontrado");
 
             }
 
@@ -48,27 +49,27 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             var existe = _db.Clientes.SingleOrDefault(x => x.Id == id);
             if (existe == null)
             {
-                throw new EntryPointNotFoundException("Não encontrado");
+                throw new Exception("Não encontrado");
 
             }
             existe.InativaCliente();
             _db.SaveChanges();
 
-            return id;
+            return existe.Id;
         }
 
-        public Cliente UpdateCliente(int id, string nome, string sobrenome, string endereco)
+        public Cliente UpdateCliente(Cliente cliente)
         {
-           var existe = _db.Clientes.SingleOrDefault(x => x.Id == id);
+           var existe = _db.Clientes.SingleOrDefault(x => x.Id == cliente.Id);
             if (existe == null)
             {
                 throw new EntryPointNotFoundException("Não encontrado");
 
             }
-            existe.UpdateCliente(nome, sobrenome, endereco);
             _db.Clientes.Update(existe);
             _db.SaveChanges();
             return existe;
         }
+
     }
 }
