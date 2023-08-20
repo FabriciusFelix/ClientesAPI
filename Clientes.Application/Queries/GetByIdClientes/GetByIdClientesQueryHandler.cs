@@ -19,8 +19,8 @@ namespace Clientes.Application.Queries.GetByIdClientes
         }
         public Task<Cliente> Handle(GetByIdClientesQuery request, CancellationToken cancellationToken)
         {
-            var cliente = _clienteRepository.GetByIdCliente(request.Id); 
-            return Task.FromResult(cliente);
+            var cliente = _clienteRepository.GetByIdClienteAsync(request.Id); 
+            return cliente;
 
         }
     }

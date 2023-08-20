@@ -1,5 +1,6 @@
 ﻿using Clientes.Core.Entities;
 using Clientes.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Update.Internal;
 using System;
 using System.Collections.Generic;
@@ -19,22 +20,22 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             _db = context;
         }
 
-        public Cliente AddCliente(Cliente cliente)
+        public async Task<Cliente> AddClienteAsync(Cliente cliente)
         {   
 
-            var clienteNovo = _db.Clientes.Add(cliente);
-            _db.SaveChanges();
-            return clienteNovo.Entity;
+            var clienteNovo =await _db.Clientes.AddAsync(cliente);
+            await _db.SaveChangesAsync();
+            return clienteNovo.Entity; 
         }
 
-        public List<Cliente> GetAllClientes()
+        public async Task<List<Cliente>> GetAllClientesAsync()
         {
-            return _db.Clientes.ToList();
+            return await _db.Clientes.ToListAsync();
         }
 
-        public Cliente GetByIdCliente(int id)
+        public async Task<Cliente> GetByIdClienteAsync(int id)
         {
-            var existe = _db.Clientes.SingleOrDefault(x => x.Id == id);
+            var existe =  await _db.Clientes.SingleOrDefaultAsync(x => x.Id == id);
             if (existe == null)
             {
                 throw new Exception("Não encontrado");
@@ -44,30 +45,30 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             return existe;
         }
 
-        public int InativaCliente(int id)
+        public async Task<int> InativaClienteAsync(int id)
         {
-            var existe = _db.Clientes.SingleOrDefault(x => x.Id == id);
+            var existe = await _db.Clientes.SingleOrDefaultAsync(x => x.Id == id);
             if (existe == null)
             {
                 throw new Exception("Não encontrado");
 
             }
             existe.InativaCliente();
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
 
             return existe.Id;
         }
 
-        public Cliente UpdateCliente(Cliente cliente)
+        public async Task<Cliente> UpdateClienteAsync(Cliente cliente)
         {
-           var existe = _db.Clientes.SingleOrDefault(x => x.Id == cliente.Id);
+           var existe = await _db.Clientes.SingleOrDefaultAsync(x => x.Id == cliente.Id);
             if (existe == null)
             {
                 throw new EntryPointNotFoundException("Não encontrado");
 
             }
             _db.Clientes.Update(existe);
-            _db.SaveChanges();
+            await _db.SaveChangesAsync();
             return existe;
         }
 

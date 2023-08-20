@@ -20,8 +20,8 @@ namespace Clientes.Application.Commands.DeleteCliente
 
         public Task<int> Handle(DeleteClienteCommand request, CancellationToken cancellationToken)
         {
-            var cliente = _repository.InativaCliente(request.Id);
-            return Task.FromResult(cliente);
+            var cliente = _repository.InativaClienteAsync(request.Id);
+            return cliente;
         }
     }
 }

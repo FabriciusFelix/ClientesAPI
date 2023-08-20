@@ -9,13 +9,13 @@ namespace Clientes.Core.Repositories
 {
     public interface IClienteRepository
     {
-        List<Cliente> GetAllClientes();
+        Task<List<Cliente>> GetAllClientesAsync();
 
-        Cliente GetByIdCliente(int id);
+        Task<Cliente> GetByIdClienteAsync(int id);
 
-        Cliente AddCliente(Cliente cliente);
+        Task<Cliente> AddClienteAsync(Cliente cliente);
 
-        Cliente UpdateCliente(Cliente cliente);
-        int InativaCliente(int id);
+        Task<Cliente> UpdateClienteAsync(Cliente cliente);
+        Task<int> InativaClienteAsync(int id);
     }
 }

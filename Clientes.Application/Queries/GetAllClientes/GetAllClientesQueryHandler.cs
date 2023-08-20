@@ -21,9 +21,9 @@ namespace Clientes.Application.Queries.GetAllClientes
         public Task<List<Cliente>> Handle(GetAllClientesQuery request, CancellationToken cancellationToken)
         {
             
-            var clientes = _repository.GetAllClientes();
+            var clientes = _repository.GetAllClientesAsync();
 
-            return Task.FromResult(clientes);
+            return clientes;
         }
     }
 }

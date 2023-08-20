@@ -19,10 +19,10 @@ namespace Clientes.Application.Commands.UpdateCliente
 
         Task<Unit> IRequestHandler<UpdateClienteCommand, Unit>.Handle(UpdateClienteCommand request, CancellationToken cancellationToken)
         {
-            var cliente = _repository.GetByIdCliente(request.Id);
-            cliente.UpdateCliente(request.Nome, request.Sobrenome,request.Email, request.Endereco);
+            var cliente = _repository.GetByIdClienteAsync(request.Id);
+            cliente.Result.UpdateCliente(request.Nome, request.Sobrenome,request.Email, request.Endereco);
 
-            _repository.UpdateCliente(cliente);
+            _repository.UpdateClienteAsync(cliente.Result);
             return Task.FromResult(Unit.Value);
 
         }

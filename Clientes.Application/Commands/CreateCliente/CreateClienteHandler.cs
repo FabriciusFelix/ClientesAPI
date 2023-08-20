@@ -19,13 +19,13 @@ namespace Clientes.Application.Commands.CreateCliente
             _repository = repository;
         }
 
-        public Task<int> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
         {
             var cliente = new Cliente(request.Id, request.Nome, request.Sobrenome, request.CodigoCpf,  request.Email, request.DataNascimento, request.Endereco, true, request.CriadoEm);
-            
-            _repository.AddCliente(cliente);
 
-            return Task.FromResult(cliente.Id);
+            object value = await _repository.AddClienteAsync(cliente);
+
+            return cliente.Id;
         }
     }
 }

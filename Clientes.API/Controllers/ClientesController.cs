@@ -26,54 +26,54 @@ namespace Clientes.API.Controllers
 
         // GET: api/<ClientesController>
         [HttpGet]
-        public IActionResult GetAllClientes()
+        public async Task<IActionResult> GetAllClientes()
         {
             var getAllClientes = new GetAllClientesQuery();
-            var clientes = _mediator.Send(getAllClientes);
+            var clientes = await _mediator.Send(getAllClientes);
 
             return Ok(clientes);
         }
 
         // GET api/<ClientesController>/5
         [HttpGet("{id}")]
-        public IActionResult GetByIdClientes(int id)
+        public async Task<IActionResult> GetByIdClientes(int id)
         {
             var getByIdCliente = new GetByIdClientesQuery(id);
-            var cliente = _mediator.Send(getByIdCliente);
+            var cliente = await _mediator.Send(getByIdCliente);
 
             return Ok(cliente);
         }
 
         // POST api/<ClientesController>
         [HttpPost]
-        public IActionResult Post([FromBody] CreateClienteCommand cliente)
+        public async Task<IActionResult> Post([FromBody] CreateClienteCommand cliente)
         {
-            var id = _mediator.Send(cliente);
-            if (id.Exception != null)
+            var id = await _mediator.Send(cliente);
+            if (id <= 0)
             {
-                return BadRequest(id.Exception.InnerException.Message);
+                return BadRequest(id);
             }
             return CreatedAtAction(nameof(GetByIdClientes),new { id = id }, cliente);
         }
 
         // PUT api/<ClientesController>/5
         [HttpPut("{id}")]
-        public IActionResult PutCliente(int id, [FromBody] UpdateClienteCommand command)
+        public async Task<IActionResult> PutCliente(int id, [FromBody] UpdateClienteCommand command)
         {
             command.Id = id;
             command.Email = Cliente.ValidarEmail(command.Email);
-            _mediator.Send(command);
+            await _mediator.Send(command);
             return NoContent();
         }
 
         // DELETE api/<ClientesController>/5
         [HttpDelete("{id}")]
-        public IActionResult DeleteCliente(int id)
+        public async Task<IActionResult> DeleteCliente(int id)
         {
             var deleteCliente = new DeleteClienteCommand(id);
-            var cliente = _mediator.Send(deleteCliente);
+            var cliente =await _mediator.Send(deleteCliente);
 
-            if (cliente.Id == null)
+            if (cliente <= 0)
             {
                 return BadRequest();
             }
