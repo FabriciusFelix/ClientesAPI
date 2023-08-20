@@ -18,7 +18,7 @@ namespace Clientes.Application.Commands.DeleteCliente
         }
 
 
-        public Task<int> Handle(DeleteClienteCommand request, CancellationToken cancellationToken)
+        Task<int> IRequestHandler<DeleteClienteCommand, int>.Handle(DeleteClienteCommand request, CancellationToken cancellationToken)
         {
             var cliente = _repository.InativaClienteAsync(request.Id);
             return cliente;

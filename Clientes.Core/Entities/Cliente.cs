@@ -28,14 +28,26 @@ namespace Clientes.Core.Entities
             Id = id;
             Nome = nome;
             Sobrenome = sobrenome;
-            if (ValidaCpf(codigoCpf)) { CodigoCpf = codigoCpf; } else { throw new Exception($"CPF Inválido, {codigoCpf}"); }        
-            Email = ValidarEmail(email);    
+            CodigoCpf = codigoCpf;       
+            Email = email;    
             DataNascimento = dataNascimento;
             Endereco = endereco;
             CriadoEm = DateTime.Now;
             Ativo = ativo;
         }
+        public void InativaCliente()
+        {
+            this.Ativo = false;
+        }
+        public void UpdateCliente(string nome, string sobrenome,string email, string endereco)
+        {
+            Nome = nome;
+            Sobrenome = sobrenome;
+            Email = email;
+            Endereco = endereco;
+        }
 
+        //Validação de E-mail Removida da Camada Domain através do FluentValidation, Deixado apenas para consulta.
         public static string ValidarEmail(string email)
         {
             string regex = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$";
@@ -49,17 +61,8 @@ namespace Clientes.Core.Entities
             
         }
 
-        public void InativaCliente()
-        {
-            this.Ativo = false;
-        }
-        public void UpdateCliente(string nome, string sobrenome,string email, string endereco)
-        {
-            Nome = nome;
-            Sobrenome = sobrenome;
-            Email = ValidarEmail(email);
-            Endereco = endereco;
-        }
+
+        //Validação de CPF Removida da Camada Domain através do FluentValidation, Deixado apenas para consulta.
         public static bool ValidaCpf(string cpf)
         {
             int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };

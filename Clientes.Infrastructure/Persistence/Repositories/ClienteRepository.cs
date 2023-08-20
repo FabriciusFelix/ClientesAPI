@@ -38,25 +38,10 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             var existe =  await _db.Clientes.SingleOrDefaultAsync(x => x.Id == id);
             if (existe == null)
             {
-                throw new Exception("Não encontrado");
-
+               return null;
             }
 
             return existe;
-        }
-
-        public async Task<int> InativaClienteAsync(int id)
-        {
-            var existe = await _db.Clientes.SingleOrDefaultAsync(x => x.Id == id);
-            if (existe == null)
-            {
-                throw new Exception("Não encontrado");
-
-            }
-            existe.InativaCliente();
-            await _db.SaveChangesAsync();
-
-            return existe.Id;
         }
 
         public async Task<Cliente> UpdateClienteAsync(Cliente cliente)
@@ -72,5 +57,17 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             return existe;
         }
 
+        public async Task<int> InativaClienteAsync(int id)
+        {
+            var existe = await _db.Clientes.SingleOrDefaultAsync(x => x.Id == id);
+            if (existe == null)
+            {
+                return 0;
+            }
+            existe.InativaCliente();
+            await _db.SaveChangesAsync();
+
+            return existe.Id;
+        }
     }
 }

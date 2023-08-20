@@ -9,3 +9,4 @@ Até o momento o projeto contém:
 - Relacionamento com o Contexto de Dados utilizando Interfaces(Padrão Repository).
 - Design Pattern **Mediator** utilizando **CQRS** e a biblioteca MediatR.
 - Métodos Assincronos.
+- Validações nos EndPoints da API utilizando **Fluent Validation**

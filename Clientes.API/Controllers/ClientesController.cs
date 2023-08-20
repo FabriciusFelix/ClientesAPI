@@ -18,7 +18,7 @@ namespace Clientes.API.Controllers
     {
         
         private readonly IMediator _mediator;
-        public ClientesController(IClienteRepository clienteRepository, IMediator mediator)
+        public ClientesController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -48,22 +48,31 @@ namespace Clientes.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] CreateClienteCommand cliente)
         {
+            if(!ModelState.IsValid)
+            {
+                var mensagens = ModelState.SelectMany(x => x.Value.Errors).Select(e => e.ErrorMessage).ToList();
+                return BadRequest(mensagens);
+            }
             var id = await _mediator.Send(cliente);
             if (id <= 0)
             {
                 return BadRequest(id);
             }
-            return CreatedAtAction(nameof(GetByIdClientes),new { id = id }, cliente);
+            return CreatedAtAction(nameof(GetByIdClientes),new { id }, cliente);
         }
 
         // PUT api/<ClientesController>/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCliente(int id, [FromBody] UpdateClienteCommand command)
         {
+            if (!ModelState.IsValid)
+            {
+                var mensagens = ModelState.SelectMany(x => x.Value.Errors).Select(e => e.ErrorMessage).ToList();
+                return BadRequest(mensagens);
+            }
             command.Id = id;
-            command.Email = Cliente.ValidarEmail(command.Email);
-            await _mediator.Send(command);
-            return NoContent();
+            var result = await _mediator.Send(command);
+            return Ok(); //200, 204 ou 201 se criasse um novo recurso.
         }
 
         // DELETE api/<ClientesController>/5
@@ -71,13 +80,12 @@ namespace Clientes.API.Controllers
         public async Task<IActionResult> DeleteCliente(int id)
         {
             var deleteCliente = new DeleteClienteCommand(id);
-            var cliente =await _mediator.Send(deleteCliente);
+            var cliente = await _mediator.Send(deleteCliente);
 
-            if (cliente <= 0)
+            if (cliente == 0)
             {
                 return BadRequest();
             }
-
             return NoContent();
         }
     }

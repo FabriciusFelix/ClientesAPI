@@ -23,9 +23,9 @@ namespace Clientes.Application.Commands.CreateCliente
         {
             var cliente = new Cliente(request.Id, request.Nome, request.Sobrenome, request.CodigoCpf,  request.Email, request.DataNascimento, request.Endereco, true, request.CriadoEm);
 
-            object value = await _repository.AddClienteAsync(cliente);
+            var addCliente = await _repository.AddClienteAsync(cliente);
 
-            return cliente.Id;
+            return addCliente.Id;
         }
     }
 }
