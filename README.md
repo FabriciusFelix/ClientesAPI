@@ -36,11 +36,11 @@ Lembre-se de verificar se o seu serviço do SQL está ativo e se a string de conex
   <img src="./Clientes.API/Assets/SqlConfig.gif" />
 </h1>
 
-###### Dica! 
- Exemplos de clientes disponíveis na pasta ./Clientes.API/Assets/ 
+### Dicas! 
+ Exemplos de clientes disponíveis na pasta ./Clientes.API/Assets/.<br>
  É possivel Executar sem o SQLServer, para isso, Em ./Clientes.API/Program.cs:
- - commente a linha 25 que menciona a opção <a>options.UseSqlServer(configuration))</a>
- - Descomente a linha 25 que menciona a opção <a>x.UseInMemoryDatabase("ClientesDatabase"))</a>
+ - commente a linha 25 que menciona a opção <font color="blue">options.UseSqlServer(configuration))</font>
+ - Descomente a linha 25 que menciona a opção <font color="blue">x.UseInMemoryDatabase("ClientesDatabase"))</font>
 
  <h1 align="center">
   <img src="./Clientes.API/Assets/InMemory.gif" />
