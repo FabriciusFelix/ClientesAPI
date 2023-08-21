@@ -1,0 +1,36 @@
+
+
+{
+  "id": 0,
+  "nome": "Enzo Gael ",
+  "sobrenome": "Gomes",
+  "codigoCpf": "611.807.851-34",
+  "email": "enzo_gael_gomes@grupoitaipu.com.br",
+  "dataNascimento": "1997-01-13",
+  "endereco": "Rua A",
+  "ativo": false,
+  "criadoEm": "2000-08-19T16:08:11.971Z"
+}
+{
+  "id": 0,
+  "nome": "Yasmin Carla",
+  "sobrenome": "Corte Real",
+  "codigoCpf": "553.965.090-58",
+  "email": "yasmin_cortereal@amure.com.br",
+  "dataNascimento": "2001-01-29",
+  "endereco": "Rua B - RJ",
+  "ativo": true,
+  "criadoEm": "2000-08-19T16:08:11.971Z"
+}
+{
+  "id": 0,
+  "nome": "Ian César ",
+  "sobrenome": "Assunção",
+  "codigoCpf": "637.087.366-72",
+  "email": "ian_assuncao@fpsgeodata.com.br",
+  "dataNascimento": "2014-01-01",
+  "endereco": "Avenida Dom Cruz, 913- Jardim Dom Bosco",
+  "ativo": true,
+  "criadoEm": "2000-08-19T16:08:11.971Z"
+}
+

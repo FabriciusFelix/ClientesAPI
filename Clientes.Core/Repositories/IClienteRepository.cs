@@ -13,9 +13,11 @@ namespace Clientes.Core.Repositories
 
         Task<Cliente> GetByIdClienteAsync(int id);
 
-        Task<int?> AddClienteAsync(Cliente cliente);
+        Task<int> AddClienteAsync(Cliente cliente);
 
         Task<Cliente> UpdateClienteAsync(Cliente cliente);
         Task<int> InativaClienteAsync(int id);
+        Task<bool> EmailJaExiste(string email);
+        Task<bool> CpfJaExiste(string email);
     }
 }

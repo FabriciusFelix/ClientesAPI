@@ -29,3 +29,6 @@ Execute os comandos:
 <h1 align="center">
   <img src="./Clientes.API/Assets/Sqlgif.gif" />
 </h1>
+
+###### Dica! 
+ Exemplos de clientes disponíveis na pasta ./Clientes.API/Assets/ 

@@ -1,5 +1,6 @@
 ﻿
 using Clientes.Application.Commands.UpdateCliente;
+using Clientes.Core.Repositories;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,23 @@ namespace Clientes.Application.Validators
 {
     public class UpdateClienteCommandValidator : AbstractValidator<UpdateClienteCommand>
     {
-        public UpdateClienteCommandValidator() {
+        private readonly IClienteRepository _repository;
+        
+        public UpdateClienteCommandValidator(IClienteRepository repository)
+        {
+            _repository = repository;
             RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("Email não é Válido!");
             RuleFor(x => x.Nome).MinimumLength(4).MaximumLength(20).NotEmpty().NotNull().WithMessage("Nome inválido!");
             RuleFor(x => x.Sobrenome).MinimumLength(6).MaximumLength(20).NotEmpty().NotNull().WithMessage("Sobrenome inválido!");
-        }  
+            RuleFor(x => x.Email).Must(EmailJaExiste).WithMessage("Email Já existente!");
+        }
 
+
+        private bool EmailJaExiste(string Email)
+        {
+            var existe = _repository.EmailJaExiste(Email);
+
+            return existe.Result;
+        }
     }
 }

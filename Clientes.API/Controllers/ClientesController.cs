@@ -54,7 +54,7 @@ namespace Clientes.API.Controllers
                 return BadRequest(mensagens);
             }
             var result = await _mediator.Send(cliente);
-            if (result == null || result < 1)
+            if ( result < 1)
             {
                 return BadRequest(result);
             }

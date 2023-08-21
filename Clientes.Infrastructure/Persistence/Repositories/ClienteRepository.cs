@@ -20,10 +20,10 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             _db = context;
         }
 
-        public async Task<int?> AddClienteAsync(Cliente cliente)
+        public async Task<int> AddClienteAsync(Cliente cliente)
         {
             var validaCpf = await _db.Clientes.SingleOrDefaultAsync(x => x.CodigoCpf.Contains(cliente.CodigoCpf));
-            if (validaCpf != null) { return null; }
+            if (validaCpf != null) { return 0; }
 
             var clienteNovo = await _db.Clientes.AddAsync(cliente);
             await _db.SaveChangesAsync();
@@ -48,15 +48,17 @@ namespace Clientes.Infrastructure.Persistence.Repositories
 
         public async Task<Cliente> UpdateClienteAsync(Cliente cliente)
         {
-           var existe = await _db.Clientes.SingleOrDefaultAsync(x => x.Id == cliente.Id);
-            if (existe == null)
+            try
             {
-                throw new EntryPointNotFoundException("Não encontrado");
-
+                var update = _db.Clientes.Update(cliente);
+                await _db.SaveChangesAsync();
+                return cliente;
             }
-            _db.Clientes.Update(existe);
-            await _db.SaveChangesAsync();
-            return existe;
+            catch (Exception ex)
+            {
+                
+                throw ;
+            }
         }
 
         public async Task<int> InativaClienteAsync(int id)
@@ -70,6 +72,18 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             await _db.SaveChangesAsync();
 
             return existe.Id;
+        }
+        public async Task<bool> EmailJaExiste(string email)
+        {
+            var existe = await _db.Clientes.FirstOrDefaultAsync(x => x.Email == email) != null ? false : true;
+
+            return existe;
+        }
+        public async Task<bool> CpfJaExiste(string cpf)
+        {
+            var existe = await _db.Clientes.FirstOrDefaultAsync(x => x.CodigoCpf == cpf) != null ? false : true;
+
+            return existe;
         }
     }
 }

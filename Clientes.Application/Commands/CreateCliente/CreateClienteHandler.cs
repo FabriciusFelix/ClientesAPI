@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Clientes.Application.Commands.CreateCliente
 {
-    public class CreateClienteHandler : IRequestHandler<CreateClienteCommand, int?>
+    public class CreateClienteHandler : IRequestHandler<CreateClienteCommand, int>
     {
         private readonly IClienteRepository _repository;
 
@@ -19,7 +19,7 @@ namespace Clientes.Application.Commands.CreateCliente
             _repository = repository;
         }
 
-        public async Task<int?> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
+        public async Task<int> Handle(CreateClienteCommand request, CancellationToken cancellationToken)
         {
             var cliente = new Cliente(request.Id, request.Nome, request.Sobrenome, request.CodigoCpf,  request.Email, request.DataNascimento, request.Endereco, true, request.CriadoEm);
 

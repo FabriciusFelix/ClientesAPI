@@ -5,7 +5,6 @@ namespace Clientes.Infrastructure
 {
     public class ClientesDbContext : DbContext
     {
-        public ClientesDbContext() { }
         public ClientesDbContext(DbContextOptions<ClientesDbContext> options) : base(options) { }
 
 

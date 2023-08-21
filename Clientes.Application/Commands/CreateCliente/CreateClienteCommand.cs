@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Clientes.Application.Commands.CreateCliente
 {
-    public class CreateClienteCommand : IRequest<int?>
+    public class CreateClienteCommand : IRequest<int>
     {
         public int Id { get;  set; }
         public string Nome { get;  set; }

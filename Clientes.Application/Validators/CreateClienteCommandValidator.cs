@@ -1,4 +1,5 @@
 ﻿using Clientes.Application.Commands.CreateCliente;
+using Clientes.Core.Repositories;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -10,12 +11,17 @@ namespace Clientes.Application.Validators
 {
     public class CreateClienteCommandValidator : AbstractValidator<CreateClienteCommand>
     {
-        public CreateClienteCommandValidator()
+        private readonly IClienteRepository _repository;
+        public CreateClienteCommandValidator(IClienteRepository repository)
         { 
-            RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("Email não Válido!");
+            _repository = repository;
+            RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("Email inválido!");
             RuleFor(x => x.CodigoCpf).Must(ValidaCpf).NotEmpty().WithMessage("CPF Inválido!");
             RuleFor(x => x.Nome).MinimumLength(4).MaximumLength(20).NotEmpty().NotNull().WithMessage("Nome inválido!");
             RuleFor(x => x.Nome).MinimumLength(6).MaximumLength(20).NotEmpty().NotNull().WithMessage("Sobrenome inválido!");
+            RuleFor(x => x.Email).Must(EmailJaExiste).WithMessage("Email Já existente!");
+            RuleFor(x => x.CodigoCpf).Must(CpfJaExiste).WithMessage("Cpf Já existente!");
+
         }
 
 
@@ -58,7 +64,18 @@ namespace Clientes.Application.Validators
 
 
         }
+        private bool EmailJaExiste(string Email)
+        {
+            var existe = _repository.EmailJaExiste(Email);
 
+            return existe.Result;
+        }
+        private bool CpfJaExiste(string cpf)
+        {
+            var existe = _repository.CpfJaExiste(cpf);
+
+            return existe.Result;
+        }
 
     }
 }
