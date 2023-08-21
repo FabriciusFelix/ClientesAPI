@@ -53,12 +53,12 @@ namespace Clientes.API.Controllers
                 var mensagens = ModelState.SelectMany(x => x.Value.Errors).Select(e => e.ErrorMessage).ToList();
                 return BadRequest(mensagens);
             }
-            var id = await _mediator.Send(cliente);
-            if (id <= 0)
+            var result = await _mediator.Send(cliente);
+            if (result == null || result < 1)
             {
-                return BadRequest(id);
+                return BadRequest(result);
             }
-            return CreatedAtAction(nameof(GetByIdClientes),new { id }, cliente);
+            return CreatedAtAction(nameof(GetByIdClientes),new { id = result }, cliente);
         }
 
         // PUT api/<ClientesController>/5

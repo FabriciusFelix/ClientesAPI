@@ -13,7 +13,7 @@ namespace Clientes.Core.Repositories
 
         Task<Cliente> GetByIdClienteAsync(int id);
 
-        Task<Cliente> AddClienteAsync(Cliente cliente);
+        Task<int?> AddClienteAsync(Cliente cliente);
 
         Task<Cliente> UpdateClienteAsync(Cliente cliente);
         Task<int> InativaClienteAsync(int id);

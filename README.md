@@ -9,4 +9,23 @@ Até o momento o projeto contém:
 - Relacionamento com o Contexto de Dados utilizando Interfaces(Padrão Repository).
 - Design Pattern **Mediator** utilizando **CQRS** e a biblioteca MediatR.
 - Métodos Assincronos.
-- Validações nos EndPoints da API utilizando **Fluent Validation**
+- Validações de e-mail e CPF nos EndPoints da API utilizando **Fluent Validation**
+- Relacionamento com o banco de dados SQLServer utilizando o **EntityFrameWorkCore**.
+
+
+### Configurando o SQLServer(Migrations)
+
+Para iniciar usando o banco de dados SQLServer:
+
+```bash
+Abra o terminal PowerShell(cmd) na pasta inicial do projeto(ClientesAPI,onde se encontra a solução e o Readme).
+
+Execute os comandos:
+
+- dotnet ef migrations add InitialMigration -s Clientes.API -p Clientes.Infrastructure -o ./Persistence/Migrations
+- dotnet ef database update -s Clientes.API
+
+```
+<h1 align="center">
+  <img src="./Clientes.API/Assets/Sqlgif.gif" />
+</h1>

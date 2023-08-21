@@ -13,15 +13,18 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+var configuration = builder.Configuration.GetConnectionString("ClientesCs");
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+
+//builder.Services.AddValidatorsFromAssemblyContaining<CreateClienteCommandValidator>(); 
 
 builder.Services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<CreateClienteCommandValidator>());
-
-builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<ClientesDbContext>(x => x.UseInMemoryDatabase("ClientesDatabase"));   
+//builder.Services.AddDbContext<ClientesDbContext>(x => x.UseInMemoryDatabase("ClientesDatabase"));
+builder.Services.AddDbContext<ClientesDbContext>(options => options.UseSqlServer(configuration));
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddMediatR(typeof(CreateClienteCommand));
-//builder.Services.AddValidatorsFromAssemblyContaining<CreateClienteCommandValidator>(); 
 
 
 var app = builder.Build();

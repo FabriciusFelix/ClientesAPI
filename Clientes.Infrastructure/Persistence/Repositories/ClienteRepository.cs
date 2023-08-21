@@ -20,12 +20,14 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             _db = context;
         }
 
-        public async Task<Cliente> AddClienteAsync(Cliente cliente)
-        {   
+        public async Task<int?> AddClienteAsync(Cliente cliente)
+        {
+            var validaCpf = await _db.Clientes.SingleOrDefaultAsync(x => x.CodigoCpf.Contains(cliente.CodigoCpf));
+            if (validaCpf != null) { return null; }
 
-            var clienteNovo =await _db.Clientes.AddAsync(cliente);
+            var clienteNovo = await _db.Clientes.AddAsync(cliente);
             await _db.SaveChangesAsync();
-            return clienteNovo.Entity; 
+            return clienteNovo.Entity.Id; 
         }
 
         public async Task<List<Cliente>> GetAllClientesAsync()
