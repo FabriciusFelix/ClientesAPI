@@ -43,25 +43,25 @@ Lembre-se de verificar se o seu serviço do SQL está ativo e se a string de conex
   <img src="./Clientes.API/Assets/Bearer part1.gif" />
 </h1>
 
-- Em seguida, no método Put(api/Usuarios/login), execute preencha os dados de email e senha conforme a imagem abaixo:
+- Em seguida, no método Put(api/Usuarios/login), preencha os dados de email e senha conforme a imagem abaixo:
 <h1 align="center">
   <img src="./Clientes.API/Assets/Bearer part2.gif" />
 </h1>
 
 - No resultado da operação, Copie o Token sem as aspas("")  no retorno da API.
 - Em seguida, basta abrir o botão *Authorize* no início da página e digitar Bearer seguido de um espaço ' ' e colar o token gerado anteriormente.
-EX:***Bearer eyJhbGciOiJIUzI1NiIs.......OiJhbG***
+EX: ***Bearer eyJhbGciOiJIUzI1NiIs.......OiJhbG***
 <h1 align="center">
   <img src="./Clientes.API/Assets/Bearer part3.gif" />
 </h1>
 
-- E pronto! Está liberado todos os Endpoints da API! 
+#### - E pronto! Está liberado todos os Endpoints da API! 
 
 ### Dicas! 
  Exemplos de clientes disponíveis na pasta ./Clientes.API/Assets/.<br>
  É possivel Executar sem o SQLServer, para isso, Em ./Clientes.API/Program.cs:
- - commente a linha 25 que menciona a opção <font color="blue">options.UseSqlServer(configuration))</font>
- - Descomente a linha 24 que menciona a opção <font color="blue">x.UseInMemoryDatabase("ClientesDatabase"))</font>
+ - commente a linha 55 que menciona a opção: _**options.UseSqlServer(configuration))**_
+ - Descomente a linha 54 que menciona a opção: _**x.UseInMemoryDatabase("ClientesDatabase"))**_
 
  <h1 align="center">
   <img src="./Clientes.API/Assets/InMemory.gif" />
