@@ -18,6 +18,7 @@ namespace Clientes.Core.Repositories
         Task<Cliente> UpdateClienteAsync(Cliente cliente);
         Task<int> InativaClienteAsync(int id);
         Task<bool> EmailJaExiste(string email);
+        Task<bool> EmailJaExisteUpdate(string email,int id); 
         Task<bool> CpfJaExiste(string email);
     }
 }

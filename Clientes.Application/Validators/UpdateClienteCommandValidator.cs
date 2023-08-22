@@ -20,15 +20,7 @@ namespace Clientes.Application.Validators
             RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("Email não é Válido!");
             RuleFor(x => x.Nome).MinimumLength(3).MaximumLength(20).NotEmpty().NotNull().WithMessage("Nome inválido!");
             RuleFor(x => x.Sobrenome).MinimumLength(4).MaximumLength(20).NotEmpty().NotNull().WithMessage("Sobrenome inválido!");
-            RuleFor(x => x.Email).Must(EmailJaExiste).WithMessage("Email Já existente!");
         }
 
-
-        private bool EmailJaExiste(string Email)
-        {
-            var existe = _repository.EmailJaExiste(Email);
-
-            return existe.Result;
-        }
     }
 }

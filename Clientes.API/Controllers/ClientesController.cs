@@ -75,7 +75,8 @@ namespace Clientes.API.Controllers
             }
             command.Id = id;
             var result = await _mediator.Send(command);
-            return Ok(); //200, 204 ou 201 se criasse um novo recurso.
+
+            return NoContent(); //200, 204 ou 201 se criasse um novo recurso.
         }
 
         // DELETE api/<ClientesController>/5

@@ -19,10 +19,14 @@ namespace Clientes.Application.Commands.UpdateCliente
 
         async Task<Unit> IRequestHandler<UpdateClienteCommand, Unit>.Handle(UpdateClienteCommand request, CancellationToken cancellationToken)
         {
-            var cliente = _repository.GetByIdClienteAsync(request.Id);
-            cliente.Result.UpdateCliente(request.Nome, request.Sobrenome,request.Email, request.Endereco);
-
-            await _repository.UpdateClienteAsync(cliente.Result);
+            var cliente = await _repository.GetByIdClienteAsync(request.Id);
+            cliente.UpdateCliente(request.Nome, request.Sobrenome,request.Email, request.Endereco);
+            var existe = await _repository.EmailJaExisteUpdate(cliente.Email,cliente.Id);
+            if (existe)
+            {
+                await _repository.UpdateClienteAsync(cliente);
+            }
+            
             return Unit.Value;
 
         }

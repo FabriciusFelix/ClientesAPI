@@ -85,5 +85,25 @@ namespace Clientes.Infrastructure.Persistence.Repositories
 
             return existe;
         }
+
+        public async Task<bool> EmailJaExisteUpdate(string email,int id)
+        {
+            var cliente = await _db.Clientes.FirstOrDefaultAsync(x => x.Id == id);
+            var existe = await _db.Clientes.FirstOrDefaultAsync(x => x.Email == email);
+
+            if (existe == null)
+            {
+                return true;
+            }
+            else { 
+                if(cliente.Id == existe.Id)
+                { 
+                    return true;
+                }
+                return false;
+            }
+
+        }
+        
     }
 }
