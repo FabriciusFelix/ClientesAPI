@@ -11,7 +11,7 @@ Até o momento o projeto contém:
 - Métodos Assincronos.
 - Validações de e-mail e CPF nos EndPoints da API utilizando **Fluent Validation**
 - Relacionamento com o banco de dados SQLServer utilizando o **EntityFrameWorkCore**.
-
+- Implementação de login na API utilizando **Jason Web Token** e **Bearer**
 
 ### Configurando o SQLServer(Migrations)
 
@@ -36,11 +36,32 @@ Lembre-se de verificar se o seu serviço do SQL está ativo e se a string de conex
   <img src="./Clientes.API/Assets/SqlConfig.gif" />
 </h1>
 
+### Como Logar na Aplicação Utilizando o Bearer!
+
+- Com a aplicação executando, na area de usuários execute o método Post(api/Usuarios) Preenchendo os campos de Login e Senha conforme a imagem abaixo:
+<h1 align="center">
+  <img src="./Clientes.API/Assets/Bearer part1.gif" />
+</h1>
+
+- Em seguida, no método Put(api/Usuarios/login), execute preencha os dados de email e senha conforme a imagem abaixo:
+<h1 align="center">
+  <img src="./Clientes.API/Assets/Bearer part2.gif" />
+</h1>
+
+- No resultado da operação, Copie o Token sem as aspas("")  no retorno da API.
+- Em seguida, basta abrir o botão *Authorize* no início da página e digitar Bearer seguido de um espaço ' ' e colar o token gerado anteriormente.
+EX:***Bearer eyJhbGciOiJIUzI1NiIs.......OiJhbG***
+<h1 align="center">
+  <img src="./Clientes.API/Assets/Bearer part3.gif" />
+</h1>
+
+- E pronto! Está liberado todos os Endpoints da API! 
+
 ### Dicas! 
  Exemplos de clientes disponíveis na pasta ./Clientes.API/Assets/.<br>
  É possivel Executar sem o SQLServer, para isso, Em ./Clientes.API/Program.cs:
  - commente a linha 25 que menciona a opção <font color="blue">options.UseSqlServer(configuration))</font>
- - Descomente a linha 25 que menciona a opção <font color="blue">x.UseInMemoryDatabase("ClientesDatabase"))</font>
+ - Descomente a linha 24 que menciona a opção <font color="blue">x.UseInMemoryDatabase("ClientesDatabase"))</font>
 
  <h1 align="center">
   <img src="./Clientes.API/Assets/InMemory.gif" />

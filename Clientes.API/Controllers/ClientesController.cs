@@ -6,13 +6,16 @@ using Clientes.Application.Queries.GetByIdClientes;
 using Clientes.Core.Entities;
 using Clientes.Core.Repositories;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Clientes.API.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
     public class ClientesController : ControllerBase
     {

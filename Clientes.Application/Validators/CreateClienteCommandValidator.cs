@@ -17,8 +17,8 @@ namespace Clientes.Application.Validators
             _repository = repository;
             RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("Email inválido!");
             RuleFor(x => x.CodigoCpf).Must(ValidaCpf).NotEmpty().WithMessage("CPF Inválido!");
-            RuleFor(x => x.Nome).MinimumLength(4).MaximumLength(20).NotEmpty().NotNull().WithMessage("Nome inválido!");
-            RuleFor(x => x.Nome).MinimumLength(6).MaximumLength(20).NotEmpty().NotNull().WithMessage("Sobrenome inválido!");
+            RuleFor(x => x.Nome).MinimumLength(3).MaximumLength(20).NotEmpty().NotNull().WithMessage("Nome inválido!");
+            RuleFor(x => x.Sobrenome).MinimumLength(4).MaximumLength(20).NotEmpty().NotNull().WithMessage("Sobrenome inválido!");
             RuleFor(x => x.Email).Must(EmailJaExiste).WithMessage("Email Já existente!");
             RuleFor(x => x.CodigoCpf).Must(CpfJaExiste).WithMessage("Cpf Já existente!");
 

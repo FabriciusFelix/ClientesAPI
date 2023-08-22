@@ -56,7 +56,7 @@ namespace Clientes.Infrastructure.Persistence.Repositories
             }
             catch (Exception ex)
             {
-                
+                Console.WriteLine(ex.ToString());
                 throw ;
             }
         }

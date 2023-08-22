@@ -7,13 +7,14 @@ namespace Clientes.Infrastructure
     {
         public ClientesDbContext(DbContextOptions<ClientesDbContext> options) : base(options) { }
 
-
         public DbSet<Cliente> Clientes { get; set; }
-
+        public DbSet<Usuario> Usuarios { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Cliente>()
                 .HasKey(x =>  x.Id);
+            modelBuilder.Entity<Usuario>()
+                .HasKey(s => s.Id);
         }
 
     }
