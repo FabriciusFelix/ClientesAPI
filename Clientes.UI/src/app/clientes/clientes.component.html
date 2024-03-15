@@ -1,0 +1,48 @@
+<div class="toolbar" type ="toolbar"></div>
+
+<div class ="container p-5">
+  <div class ="row">
+    <div class ="col-6 border border-light rounded p-5 shadow" *ngIf="formulario">
+      <h1 class="text-center">Clientes</h1>
+      <h6 class="text-center">titulo</h6>
+      <hr/>
+
+      <form [formGroup]="formulario">
+        <div class ="form-group">
+          <label for="nome">Nome: </label>
+          <input type="text" class="form-control form-control-sm" id="nome" formControlName="nome">
+        </div>
+        <div class ="form-group">
+          <label for="sobrenome">Sobrenome: </label>
+          <input type="text" class="form-control form-control-sm" id="sobrenome" formControlName="sobrenome">
+        </div>
+        <div class ="form-group">
+          <label for="codigoCpf">Codigo CPF: </label>
+          <input type="text" class="form-control form-control-sm" id="codigoCpf" formControlName="codigoCpf">
+        </div>
+        <div class ="form-group">
+          <label for="email">E-mail: </label>
+          <input type="text" class="form-control form-control-sm" id="email" formControlName="email">
+        </div>
+        <div class ="form-group">
+          <label for="dataNascimento">Data de Nascimento: </label>
+          <input type="text" class="form-control form-control-sm" id="dataNascimento" formControlName="dataNascimento">
+        </div>
+        <div class ="form-group">
+          <label for="endereco">Endereço: </label>
+          <input type="text" class="form-control form-control-sm" id="endereco" formControlName="endereco">
+        </div>
+        <div class ="container">
+          <div class="row">
+            <div class="col-6">
+              <button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+            </div>
+            <div class="pl-1">
+              <button class="btn btn-danger btn-sm" >Salvar</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
