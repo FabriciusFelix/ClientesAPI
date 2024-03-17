@@ -51,8 +51,8 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 
-//builder.Services.AddDbContext<ClientesDbContext>(x => x.UseInMemoryDatabase("ClientesDatabase"));
-builder.Services.AddDbContext<ClientesDbContext>(options => options.UseSqlServer(configuration));
+builder.Services.AddDbContext<ClientesDbContext>(x => x.UseInMemoryDatabase("ClientesDatabase"));
+// builder.Services.AddDbContext<ClientesDbContext>(options => options.UseSqlServer(configuration));
 
 
 builder.Services.AddControllers().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<CreateClienteCommandValidator>());
@@ -60,7 +60,7 @@ builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddMediatR(typeof(CreateClienteCommand));
 builder.Services.AddScoped<IAuthService, AuthService>();
-
+builder.Services.AddCors();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
@@ -93,5 +93,5 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
-
+app.UseCors(c => c.AllowAnyHeader().AllowAnyOrigin().AllowAnyOrigin());
 app.Run();
