@@ -6,6 +6,6 @@ export interface ICliente{
   email: string,
   dataNascimento: Date,
   endereco: string,
-  ativo: true,
+  ativo: boolean,
   criadoEm: Date
 }

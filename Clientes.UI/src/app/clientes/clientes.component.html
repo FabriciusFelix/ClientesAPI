@@ -14,7 +14,12 @@
       <h6 class="text-center">Insira o novo cliente!</h6>
       <hr/>
 
-      <form [formGroup]="formulario" (submit)="postClientes(formulario)">
+      <form [formGroup]="formulario" >
+        <div class ="form-group">
+          <!-- Please, transform that label in a hidden label -->
+          <label for="id" type="hidden"> </label>
+          <input type="hidden" class="form-control form-control-sm" id="id" placeholder="id" formControlName="id">
+        </div>
         <div class ="form-group">
           <label for="nome">Nome: </label>
           <input type="text" class="form-control form-control-sm" id="nome" formControlName="nome">
@@ -39,13 +44,21 @@
           <label for="endereco">Endereço: </label>
           <input type="text" class="form-control form-control-sm" id="endereco" formControlName="endereco">
         </div>
+        <div class ="form-group">
+          <label for="ativo" type="hidden"></label>
+          <input type="hidden" class="form-control form-control-sm" id="ativo" formControlName="ativo" value ="true">
+        </div>
+        <div class ="form-group">
+          <label for="criadoEm" type="hidden"></label>
+          <input type="hidden" class="form-control form-control-sm" id="criadoEm" formControlName="criadoEm" value="new Date()">
+        </div>
         <div class ="container">
           <div class="row">
             <div class="col-6">
-              <button class="btn btn-primary" type="submit">Salvar</button>
+              <button type="submit"(click)="postClientes(formulario)">Salvar</button>
             </div>
             <div class="pl-1">
-              <button class="btn btn-danger btn-sm" >Cancelar</button>
+              <button  class="btn btn-danger btn-sm" >Cancelar</button>
             </div>
           </div>
         </div>
@@ -54,9 +67,8 @@
   </div>
 </div>
 <div class="row">
-  <div *ngFor="let cliente of clientes">
-    <p>Cliente: <b>{{cliente.nome}}</b> </p>
-    <p>Cliente: <b>{{cliente.email}}</b> </p>
+  <div >
+    <p>Cliente: <b>{{formulario.value}}</b> </p>
   </div>
 </div>
 <div>

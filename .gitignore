@@ -361,3 +361,50 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+#angular
+
+# Compiled output
+/Clientes.UI/dist
+/Clientes.UI/tmp
+/Clientes.UI/out-tsc
+/Clientes.UI/bazel-out
+
+# Node
+/Clientes.UI/node_modules
+/Clientes.UI/npm-debug.log
+/Clientes.UI/yarn-error.log
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code
+/Clientes.UI/.vscode/*
+/Clientes.UI/!.vscode/settings.json
+/Clientes.UI/!.vscode/tasks.json
+/Clientes.UI/!.vscode/launch.json
+/Clientes.UI/!.vscode/extensions.json
+/Clientes.UI/.history/*
+
+# Miscellaneous
+/Clientes.UI/Clientes.UI/.angular/cache
+/Clientes.UI.sass-cache/
+/Clientes.UI/Clientes.UI/connect.lock
+/Clientes.UI/coverage
+/Clientes.UI/libpeerconnection.log
+/Clientes.UItestem.log
+/Clientes.UI/typings
+
+# System files
+/Clientes.UI/.DS_Store
+/Clientes.UI/Thumbs.db
+/Clientes.UI/.vercel
+/Clientes.UI/.angular
+
+
